@@ -1,0 +1,19 @@
+namespace CodeFirst.Migrations
+{
+    using System;
+    using System.Data.Entity.Migrations;
+    
+    public partial class AddDatePublishedColumnToCoursesTable : DbMigration
+    {
+        public override void Up()
+        {
+            AddColumn("dbo.Courses", "DatePublished", c => c.DateTime(nullable: false));
+            Sql("update Courses set DatePublished = getdate() where DatePublished is null");
+        }
+        
+        public override void Down()
+        {
+            DropColumn("dbo.Courses", "DatePublished");
+        }
+    }
+}
