@@ -54,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
     <Compile Include="Migrations\201701080602502_InitialModel.cs" />
     <Compile Include="Migrations\201701080602502_InitialModel.Designer.cs">
       <DependentUpon>201701080602502_InitialModel.cs</DependentUpon>
@@ -78,6 +77,14 @@
     <Compile Include="Migrations\201701091017329_RemoveDatePublishedColumnFromCoursesTable.cs" />
     <Compile Include="Migrations\201701091017329_RemoveDatePublishedColumnFromCoursesTable.Designer.cs">
       <DependentUpon>201701091017329_RemoveDatePublishedColumnFromCoursesTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701091020525_DeleteCategoryColumnCourses.cs" />
+    <Compile Include="Migrations\201701091020525_DeleteCategoryColumnCourses.Designer.cs">
+      <DependentUpon>201701091020525_DeleteCategoryColumnCourses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201701091022360_DeleteCategoriesTable.cs" />
+    <Compile Include="Migrations\201701091022360_DeleteCategoriesTable.Designer.cs">
+      <DependentUpon>201701091022360_DeleteCategoriesTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
@@ -105,6 +112,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201701091017329_RemoveDatePublishedColumnFromCoursesTable.resx">
       <DependentUpon>201701091017329_RemoveDatePublishedColumnFromCoursesTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701091020525_DeleteCategoryColumnCourses.resx">
+      <DependentUpon>201701091020525_DeleteCategoryColumnCourses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201701091022360_DeleteCategoriesTable.resx">
+      <DependentUpon>201701091022360_DeleteCategoriesTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

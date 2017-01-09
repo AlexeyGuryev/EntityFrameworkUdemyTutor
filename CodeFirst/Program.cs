@@ -13,7 +13,6 @@ namespace CodeFirst
         public float FullPrice { get; set; }
         public Author Author { get; set; }
         public IList<Tag> Tags { get; set; }
-        public Category Category { get; set; }
     }
 
     public class Author
@@ -42,7 +41,6 @@ namespace CodeFirst
         public DbSet<Course> Courses { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Tag> Tags { get; set; }
-        public DbSet<Category> Categories { get; set; }
 
         public PlutoContext() : base("name=DefaultConnection")
         {
