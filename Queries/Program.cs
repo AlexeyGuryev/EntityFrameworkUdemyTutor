@@ -1,4 +1,5 @@
 ﻿
+using Queries.Persistence;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -25,8 +26,37 @@ namespace Queries
 
             ChangeTracking(ctx);
 
+            Console.WriteLine("\nPress 'Enter' to try repositories");
+            Console.ReadLine();
+
+            TryRepository(ctx);
+
             Console.WriteLine("\nPress 'Enter' to close");
             Console.ReadLine();
+        }
+
+        private static void TryRepository(PlutoContext ctx)
+        {
+            using (var uow = new UnitOfWork(ctx))
+            {
+                uow.Courses.ListWithAuthorsPaged(0, 10).ToList().ForEach(c => Console.WriteLine(c.Name));
+
+                var course = uow.Courses.GetById(1);
+                if (course != null)
+                {
+                    course.Name = "000000";
+
+                }
+                var author = uow.Authors.GetById(1);
+                if (author != null)
+                {
+                    uow.Courses.RemoveRange(author.Courses);
+                    uow.Authors.Remove(author);
+                }
+                uow.SaveChanges();
+
+                uow.Courses.ListWithAuthorsPaged(0, 10).ToList().ForEach(c => Console.WriteLine(c.Name));
+            }
         }
 
         private static void ChangeTracking(PlutoContext ctx)
