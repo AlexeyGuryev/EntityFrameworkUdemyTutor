@@ -13,6 +13,58 @@ namespace Queries
         {
             var ctx = new PlutoContext();
 
+            Queries(ctx);
+
+            Console.WriteLine("\nPress 'Enter' to explicit/eager/lazy loading");
+            Console.ReadLine();
+
+            Loading(ctx);
+
+            Console.WriteLine("\nPress 'Enter' to change tracker states");
+            Console.ReadLine();
+
+            ChangeTracking(ctx);
+
+            Console.WriteLine("\nPress 'Enter' to close");
+            Console.ReadLine();
+        }
+
+        private static void ChangeTracking(PlutoContext ctx)
+        {
+            ctx.Authors.Add(new Author { Name = "Petroff" });
+
+            var author = ctx.Authors.Find(3);
+            author.Name = "Updated";
+
+            foreach (var entry in ctx.ChangeTracker.Entries())
+            {
+                Console.WriteLine(entry.State);
+                if (entry.State == EntityState.Modified)
+                {
+                    entry.Reload();
+                    Console.WriteLine("reload state: " + entry.State);
+                }
+            }
+        }
+
+        private static void Loading(PlutoContext ctx)
+        {
+            //lazy
+            var author = ctx.Authors.FirstOrDefault();
+            var authorCourses = author.Courses.ToList();
+
+            //eager allows preload only all Courses
+            var authorsEagerCourses = ctx.Authors.Include(a => a.Courses).ToList();
+
+            //explicit allows preload filtered Courses
+            var authorsExplicitCourses = ctx.Authors.ToList();
+            var authorIds = authorsExplicitCourses.Select(a => a.Id);
+
+            ctx.Courses.Where(c => authorIds.Contains(c.AuthorId) && c.FullPrice == 0).Load();
+        }
+
+        private static void Queries(PlutoContext ctx)
+        {
             Console.WriteLine("\n---Group example---");
             var groupQuery = ctx.Courses.GroupBy(c => c.Level).ToList();
             foreach (var item in groupQuery)
@@ -34,25 +86,6 @@ namespace Queries
 
             groupJoinQuery.ToList()
                 .ForEach(gj => Console.WriteLine(string.Format("{0} ({1})", gj.AuthorName, gj.CoursesCount)));
-
-            Console.WriteLine("\nPress 'Enter' to explicit/eager loading");
-            Console.ReadLine();
-
-            //lazy
-            var author = ctx.Authors.FirstOrDefault();
-            var authorCourses = author.Courses.ToList();
-
-            //eager allows preload only all Courses
-            var authorsEagerCourses = ctx.Authors.Include(a => a.Courses).ToList();
-            
-            //explicit allows preload filtered Courses
-            var authorsExplicitCourses = ctx.Authors.ToList();
-            var authorIds = authorsExplicitCourses.Select(a => a.Id);
-
-            ctx.Courses.Where(c => authorIds.Contains(c.AuthorId) && c.FullPrice == 0).Load();
-
-            Console.WriteLine("\nPress 'Enter' to close");
-            Console.ReadLine();
         }
     }
 }
