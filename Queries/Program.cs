@@ -1,5 +1,8 @@
 ﻿
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 
 namespace Queries
@@ -32,6 +35,21 @@ namespace Queries
             groupJoinQuery.ToList()
                 .ForEach(gj => Console.WriteLine(string.Format("{0} ({1})", gj.AuthorName, gj.CoursesCount)));
 
+            Console.WriteLine("\nPress 'Enter' to explicit/eager loading");
+            Console.ReadLine();
+
+            //lazy
+            var author = ctx.Authors.FirstOrDefault();
+            var authorCourses = author.Courses.ToList();
+
+            //eager allows preload only all Courses
+            var authorsEagerCourses = ctx.Authors.Include(a => a.Courses).ToList();
+            
+            //explicit allows preload filtered Courses
+            var authorsExplicitCourses = ctx.Authors.ToList();
+            var authorIds = authorsExplicitCourses.Select(a => a.Id);
+
+            ctx.Courses.Where(c => authorIds.Contains(c.AuthorId) && c.FullPrice == 0).Load();
 
             Console.WriteLine("\nPress 'Enter' to close");
             Console.ReadLine();
