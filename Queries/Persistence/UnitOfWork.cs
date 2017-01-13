@@ -1,6 +1,6 @@
-﻿using System;
-using Queries.Core;
-using Queries.Repositories;
+﻿using Queries.Core;
+using Queries.Core.Repositories;
+using Queries.Persistence.Repositories;
 
 namespace Queries.Persistence
 {

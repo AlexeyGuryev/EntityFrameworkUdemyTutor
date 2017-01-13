@@ -1,8 +1,7 @@
 ﻿
+using Queries.Core.Domain;
 using Queries.Persistence;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 

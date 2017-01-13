@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Queries.Core.Domain;
+using System.Collections.Generic;
 
-namespace Queries.Repositories
+namespace Queries.Core.Repositories
 {
     public interface ICourseRepository : IRepository<Course>
     {

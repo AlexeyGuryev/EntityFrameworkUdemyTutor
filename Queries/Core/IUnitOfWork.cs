@@ -1,4 +1,4 @@
-﻿using Queries.Repositories;
+﻿using Queries.Core.Repositories;
 using System;
 
 namespace Queries.Core

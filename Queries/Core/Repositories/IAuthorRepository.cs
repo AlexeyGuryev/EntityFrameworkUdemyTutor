@@ -1,4 +1,6 @@
-﻿namespace Queries.Repositories
+﻿using Queries.Core.Domain;
+
+namespace Queries.Core.Repositories
 {
     public interface IAuthorRepository : IRepository<Author>
     {

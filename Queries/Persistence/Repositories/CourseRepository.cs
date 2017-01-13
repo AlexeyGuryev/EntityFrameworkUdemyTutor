@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using Queries.Core.Domain;
+using Queries.Core.Repositories;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 
-namespace Queries.Repositories
+namespace Queries.Persistence.Repositories
 {
     public class CourseRepository : Repository<Course>, ICourseRepository
     {
